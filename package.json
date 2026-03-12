@@ -1,0 +1,32 @@
+{
+    "name": "js-ident-utils",
+    "version": "1.0.0",
+    "description": "Utilities for safe identifier extraction and dictionary-based obfuscation/transformation",
+    "type": "module",
+    "main": "transform.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/supercat1337/js-ident-utils.git"
+    },
+    "scripts": {
+        "extract": "node extract-names.js",
+        "transform": "node transform.js"
+    },
+    "keywords": [
+        "minifier",
+        "obfuscator",
+        "babel",
+        "rename-identifiers",
+        "dictionary",
+        "javascript-tools"
+    ],
+    "author": "Albert Bazaleev",
+    "license": "MIT",
+    "dependencies": {
+        "@babel/generator": "^7.23.0",
+        "@babel/parser": "^7.23.0",
+        "@babel/traverse": "^7.23.0",
+        "fast-glob": "^3.3.0",
+        "minimist": "^1.2.8"
+    }
+}
