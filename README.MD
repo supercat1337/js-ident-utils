@@ -18,7 +18,7 @@ A lightweight, cross-platform toolkit for extracting and renaming JavaScript ide
 git clone https://github.com/supercat1337/js-ident-utils.git
 cd js-ident-utils
 npm install
-
+npm link
 ```
 
 ---
@@ -30,7 +30,7 @@ npm install
 Scans your source files and collects identifiers that are safe to rename.
 
 ```bash
-node extract-names.js "src/**/*.js" --output names.json
+ident-extract "src/**/*.js" --output names.json
 
 ```
 
@@ -39,7 +39,7 @@ node extract-names.js "src/**/*.js" --output names.json
 Applies renaming to the target bundle.
 
 ```bash
-node transform.js bundle.js --map names.json --dict words.txt --output bundle.min.js
+ident-rename bundle.js --map names.json --dict words.txt --output bundle.min.js
 
 ```
 
@@ -62,7 +62,7 @@ The `transform.js` utility operates with a specific priority system to give you 
 If you want to rename **only specific** variables and leave everything else as is, provide only the `--map` file:
 
 ```bash
-node transform.js input.js --map names.json
+ident-rename input.js --map names.json
 
 ```
 
@@ -74,7 +74,7 @@ node transform.js input.js --map names.json
 If you want specific names for key functions but want to obfuscate everything else with "pretty" words:
 
 ```bash
-node transform.js input.js --map names.json --dict words.txt
+ident-rename input.js --map names.json --dict words.txt
 
 ```
 
@@ -86,7 +86,7 @@ node transform.js input.js --map names.json --dict words.txt
 To completely obfuscate the code using only your dictionary:
 
 ```bash
-node transform.js input.js --dict words.txt
+ident-rename input.js --dict words.txt
 
 ```
 

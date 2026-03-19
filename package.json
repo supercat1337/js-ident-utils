@@ -12,6 +12,10 @@
         "extract": "node extract-names.js",
         "transform": "node transform.js"
     },
+    "bin": {
+        "ident-extract": "./extract-names.js",
+        "ident-rename": "./transform.js"
+    },
     "keywords": [
         "minifier",
         "obfuscator",

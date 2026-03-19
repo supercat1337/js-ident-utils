@@ -13,6 +13,7 @@ import * as parser from '@babel/parser';
 import babelTraverse from '@babel/traverse';
 const traverse = babelTraverse.default;
 import babelGenerate from '@babel/generator';
+import { NameProvider } from './src/name-provider.js';
 const generate = babelGenerate.default;
 
 /** @const {Object} Babel parser configuration */
@@ -20,62 +21,6 @@ const PARSER_CONFIG = {
     sourceType: 'module',
     plugins: ['jsx', 'typescript', 'classProperties', 'classPrivateProperties', 'dynamicImport'],
 };
-
-/**
- * Manages name distribution from dictionary with conflict resolution
- */
-class NameProvider {
-    /**
-     * @param {string[]} dictionary
-     * @param {Record<string, string>} manualMap
-     * @param {Set<string>} forbidden
-     */
-    constructor(dictionary, manualMap, forbidden) {
-        // Ensure unique dictionary words
-        this.dictionary = [...new Set(dictionary)];
-        this.manualMap = manualMap;
-        // Set of names that are already in use (globals, properties, and map values)
-        this.used = new Set([...forbidden, ...Object.values(manualMap)]);
-
-        this.cursor = 0;
-        this.fallbackCounter = 0;
-    }
-
-    /**
-     * Returns a valid unique name for the identifier
-     * @param {string} oldName
-     * @returns {string}
-     */
-    getNewName(oldName) {
-        // 1. Priority: Manual mapping
-        if (this.manualMap[oldName] && this.manualMap[oldName] !== oldName) {
-            return this.manualMap[oldName];
-        }
-
-        // 2. Dictionary usage
-        while (this.cursor < this.dictionary.length) {
-            const candidate = this.dictionary[this.cursor++];
-            if (!this.used.has(candidate)) {
-                this.used.add(candidate);
-                return candidate;
-            }
-        }
-
-        // 3. Fallback logic
-        let fallback;
-        do {
-            const base =
-                this.dictionary.length > 0
-                    ? this.dictionary[this.fallbackCounter % this.dictionary.length]
-                    : 'v';
-            fallback = `${base}_${Math.floor(this.fallbackCounter / this.dictionary.length)}`;
-            this.fallbackCounter++;
-        } while (this.used.has(fallback));
-
-        this.used.add(fallback);
-        return fallback;
-    }
-}
 
 /**
  * Displays help message
