@@ -13,8 +13,8 @@
         "transform": "node transform.js"
     },
     "bin": {
-        "ident-extract": "./extract-names.js",
-        "ident-rename": "./transform.js"
+        "js-ident-extract": "./extract-names.js",
+        "js-ident-rename": "./transform.js"
     },
     "keywords": [
         "minifier",

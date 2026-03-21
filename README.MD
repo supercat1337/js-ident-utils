@@ -47,7 +47,7 @@ ident-rename bundle.js --map names.json --dict words.txt --output bundle.min.js
 
 ## Advanced Mapping & Dictionary Logic
 
-The `transform.js` utility operates with a specific priority system to give you full control over the output names.
+The `ident-rename` utility operates with a specific priority system to give you full control over the output names.
 
 ### Priority Levels:
 
